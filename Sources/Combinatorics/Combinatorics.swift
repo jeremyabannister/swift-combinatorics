@@ -88,6 +88,7 @@ public struct CombinatoricsIndex<Index:SignedInteger> {
             self.size  = 0 < size && size < seed.count ? size : Index(seed.count)
             self.count = Combinatorics.permutation(Index(seed.count), self.size)
         }
+        public typealias Iterator = AnyIterator<[SubElement]>
         public subscript(_ idx:Index)->[SubElement] {
             guard 0 <= idx && idx < count else { fatalError("Index out of range") }
             guard 1 < size else {
@@ -115,6 +116,7 @@ public struct CombinatoricsIndex<Index:SignedInteger> {
             self.count = Combinatorics.combination(Index(seed.count), self.size)
             self.digits = Combinatorics.combinadic(Index(seed.count), size)
         }
+        public typealias Iterator = AnyIterator<[SubElement]>
         public subscript(_ idx:Index)->[SubElement] {
             guard 0 <= idx && idx < count else { fatalError("Index out of range") }
             // cf. https://en.wikipedia.org/wiki/Combinatorial_number_system
@@ -133,6 +135,7 @@ public struct CombinatoricsIndex<Index:SignedInteger> {
             self.size  = 0 < size ? size : Index(seed.count) // seed.count <= size is okay
             self.count =  (0..<Int(self.size)).reduce(Index(1)){ n,_ in n * Index(seed.count) }
         }
+        public typealias Iterator = AnyIterator<[SubElement]>
         public subscript<I:SignedInteger>(_ idx:I)->[SubElement] {
             guard 0 <= idx && idx < count else { fatalError("Index out of range") }
             var result = [SubElement]()
@@ -152,6 +155,7 @@ public struct CombinatoricsIndex<Index:SignedInteger> {
             self.seed  = seed
             self.count = (0..<seed.count).reduce(Index(1)){ n,_ in n * Index(2) }
         }
+        public typealias Iterator = AnyIterator<[SubElement]>
         public subscript<I:SignedInteger>(_ idx:I)->[SubElement] {
             guard 0 <= idx && idx < count else { fatalError("Index out of range") }
             var result = [SubElement]()
